@@ -8,6 +8,9 @@
     <a href="{{route("products.create")}}">
         <button type="button" class="btn btn-dark" style="float: right;">Create</button>
     </a>
+        <a href="{{route("products.export")}}">
+        <button type="button" class="btn btn-dark" style="float: right;">Excel</button>
+    </a>
 
     <table class="table table-striped table-hover">
         <colgroup>
@@ -35,7 +38,7 @@
                     <input type="button" value="Edit" onclick="location.href='{{route("products.edit", $product)}}'"/>
 
                     <form action="{{route('products.destroy', $product->id)}}" method="post" style="display:inline-block;">
-                        {{-- delete method와 csrf 처리필요 --}}
+                        {{-- delete method와 csrf 처리 --}}
                         @method('delete')
                         @csrf
                         <input onclick="return confirm('정말로 삭제하겠습니까?')" type="submit" value="delete"/>

@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\StoreProductRequest;
+use App\Exports\ProductsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
@@ -30,15 +34,18 @@ class ProductController extends Controller
     }
 
     // 생성
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        // Request 에 대한 유효성 검사입니다.
-        // 유효성에 걸린 에러는 errors 에 담깁니다.
-        $request = $request->validate([
-            'name' => 'required',
-            'content' => 'required'
-        ]);
-        $this->product->create($request);
+        // Request 에 대한 유효성 검사 / 유효성에 걸린 에러는 errors 에 담깁니다.
+        $validated = $request->validated();
+        if($request->hasFile('picture')) {
+            $fileName = time().'_'.$request->file('picture')->getClientOriginalName();
+            $path = $request->file('picture')->storeAs('public/images', $fileName);
+            $validated['origin_name'] = $fileName;
+            $validated['path'] = $path;
+        }
+        //$this->product->save();
+        $this->product->create($validated);
         return redirect()->route('products.index');
     }
 
@@ -55,13 +62,16 @@ class ProductController extends Controller
     }
 
     // 수정
-    public function update(Request $request, Product $product)
+    public function update(StoreProductRequest $request, Product $product)
     {
-        $request = $request->validate([
-            'name' => 'required',
-            'content' => 'required'
-        ]);
-        $product->update($request);
+        $validated = $request->validated();
+        if($request->hasFile('picture')) {
+            $fileName = time().'_'.$request->file('picture')->getClientOriginalName();
+            $path = $request->file('picture')->storeAs('public/images', $fileName);
+            $validated['origin_name'] = $fileName;
+            $validated['path'] = $path;
+        }
+        $product->update($validated);
         return redirect()->route('products.index', $product);
     }
 
@@ -70,5 +80,11 @@ class ProductController extends Controller
     {
         $product->delete();
         return redirect()->route('products.index');
+    }
+
+    // 라라벨 엑셀 다운로드
+    public function export()
+    {
+        return Excel::download(new ProductsExport(), 'products.xlsx');
     }
 }

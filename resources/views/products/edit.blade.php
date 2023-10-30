@@ -13,7 +13,7 @@
         </div>
     @endif
 
-    <form action="{{route('products.update',$product)}}" method="post">
+    <form action="{{route('products.update',$product)}}" method="post" enctype="multipart/form-data">
         {{-- 라라벨은 CSRF로 부터 보호하기 위해 데이터를 등록할 때의 위조를 체크 하기 위해 아래 코드가 필수 --}}
         @csrf
         {{-- 라라벨 patch 메서드 사용 --}}
@@ -26,6 +26,11 @@
             <label for="content" class="form-label">Content</label>
             <textarea rows="10" cols="40" name="content" class="form-control" id="name" autocomplete="off">{{$product->content}}</textarea>
         </div>
+        <p class="mt-2">
+            <img src="{{asset('storage/images/'.$product->origin_name)}}">
+            <label for="picture"></label>
+            <input type="file" id="picture" name="picture">
+        </p>
         <button type="submit" class="btn btn-primary">Update</button>
         <a href="{{route("products.index")}}">
             <button type="button" class="btn btn-primary">Cancel</button>
