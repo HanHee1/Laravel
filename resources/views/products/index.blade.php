@@ -25,14 +25,22 @@
         </tr>
         </thead>
         <tbody>
-        {{-- blade 에서는 아래 방식으로 반복문을 처리합니다. --}}
-        {{-- Product Controller의 index에서 넘긴 $products(product 데이터 리스트)를 출력해줍니다. --}}
+        {{-- Product Controller의 index에서 넘긴 $products(product 데이터 리스트)를 출력. --}}
         @foreach ($products as $key => $product)
             <tr>
                 <th scope="row">{{$key+1 + (($products->currentPage()-1) * 10)}}</th>
-                <td>{{$product->name}}</td>
+                <td><a href="{{route("products.show", $product->id)}}">{{$product->name}}</a></td>
                 <td>{{$product->created_at}}</td>
-                <td>Edit/Delete</td>
+                <td>
+                    <input type="button" value="Edit" onclick="location.href='{{route("products.edit", $product)}}'"/>
+
+                    <form action="{{route('products.destroy', $product->id)}}" method="post" style="display:inline-block;">
+                        {{-- delete method와 csrf 처리필요 --}}
+                        @method('delete')
+                        @csrf
+                        <input onclick="return confirm('정말로 삭제하겠습니까?')" type="submit" value="delete"/>
+                    </form>
+                </td>
             </tr>
         @endforeach
         </tbody>
