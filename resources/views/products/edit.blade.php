@@ -27,7 +27,9 @@
             <textarea rows="10" cols="40" name="content" class="form-control" id="name" autocomplete="off">{{$product->content}}</textarea>
         </div>
         <p class="mt-2">
-            <img src="{{asset('storage/images/'.$product->origin_name)}}">
+            @isset($product->origin_name)
+                <img src="{{asset('storage/images/'.$product->origin_name)}}">
+            @endisset
             <label for="picture"></label>
             <input type="file" id="picture" name="picture">
         </p>
