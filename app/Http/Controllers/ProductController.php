@@ -28,6 +28,16 @@ class ProductController extends Controller
         return view('products.index', compact('products'));
     }
 
+    // 검색
+    public function search(Request $requset)
+    {
+        $products = $this->product
+            ->where('name', $requset->search)
+            ->orwhere('content', $requset->search)
+            ->paginate(10);
+        return view('products.index', compact('products'));
+    }
+
     public function create()
     {
         return view('products.create');

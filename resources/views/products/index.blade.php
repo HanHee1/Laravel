@@ -3,7 +3,9 @@
 
 {{-- 아래 html 을 @yield('content') 에 보낸다고 생각하시면 됩니다. --}}
 @section('content')
-    <h2 class="mt-4 mb-3">Product List</h2>
+    <h2 class="mt-4 mb-3">
+        <a href="{{route('products.index')}}">Product List</a>
+    </h2>
 
     <a href="{{route("products.create")}}">
         <button type="button" class="btn btn-dark prd-button">Create</button>
@@ -11,6 +13,15 @@
         <a href="{{route("products.export")}}">
         <button type="button" class="btn btn-dark prd-button">Excel</button>
     </a>
+
+    <form action="{{route('products.search')}}" method="post">
+        @csrf
+        <div class="mb-3">
+            <label for="search" class="search-label">검색</label>
+            <input type="text" name="search" class="index-search" id="search">
+            <button type="submit">검색</button>
+        </div>
+    </form>
 
     <table class="table table-striped table-hover">
         <colgroup>
