@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\ProductController;
 use \App\Http\Controllers\RandomGeneratorController;
+use App\Http\Controllers\EmailHistoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +28,7 @@ Route::get('products/{product}/edit', [ProductController::class, 'edit'])->name(
 Route::patch('products/{product}', [ProductController::class, 'update'])->name('products.update');
 Route::delete('products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 Route::get('random',[RandomGeneratorController::class,'export'])->name('random.export');
+Route::get('/email', function () {
+    return view('emailForm');
+})->name('emailForm');
+Route::post('/emailSend', [EmailHistoryController::class, 'emailSend'])->name('emailSend');
