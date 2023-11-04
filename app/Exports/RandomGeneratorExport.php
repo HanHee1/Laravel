@@ -25,11 +25,29 @@ class RandomGeneratorExport implements FromCollection
     */
     public function collection()
     {
+        // 대용량 데이터도 위해 해제.
+        ini_set('max_execution_time', '300');
+        ini_set('memory_limit','-1');
+
         $randomNumbers = [];
-        for($index = 1; $index <= $this->count; $index++){
-            $randomNumbers[] = [$index, $this->getRandomNumber()];
+        $count = 0;
+
+        // 중복이 없으면 통과
+        while ($count != $this->count) {
+            $randomNumbers = [];
+            for ($index = 0; $index < $this->count; $index++) {
+                $randomNumbers[] = $this->getRandomNumber();
+            }
+            $randomNumbers = array_unique($randomNumbers);
+            $count = count($randomNumbers);
         }
-        return new Collection($randomNumbers);
+
+        $result = [];
+        // 번호 저장 제거
+        foreach ($randomNumbers as $index => $randomNumber){
+            $result[] = [$randomNumber];
+        }
+        return new Collection($result);
     }
 
     /**
