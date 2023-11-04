@@ -6,10 +6,10 @@
     <h2 class="mt-4 mb-3">Product List</h2>
 
     <a href="{{route("products.create")}}">
-        <button type="button" class="btn btn-dark" style="float: right;">Create</button>
+        <button type="button" class="btn btn-dark prd-button">Create</button>
     </a>
         <a href="{{route("products.export")}}">
-        <button type="button" class="btn btn-dark" style="float: right;">Excel</button>
+        <button type="button" class="btn btn-dark prd-button">Excel</button>
     </a>
 
     <table class="table table-striped table-hover">

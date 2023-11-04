@@ -6,8 +6,8 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreProductRequest;
-use App\Exports\ProductsExport;
-use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ProductsExport; // excel
+use Maatwebsite\Excel\Facades\Excel; // excel
 
 class ProductController extends Controller
 {
@@ -52,7 +52,6 @@ class ProductController extends Controller
     // 상세 조회
     public function show(Product $product)
     {
-        // show 에 경우는 해당 페이지의 모델 값이 파라미터로 넘어옵니다.
         return view('products.show', compact('product'));
     }
 
@@ -82,7 +81,7 @@ class ProductController extends Controller
         return redirect()->route('products.index');
     }
 
-    // 라라벨 엑셀 다운로드
+    // Laravel 엑셀 다운로드
     public function export()
     {
         return Excel::download(new ProductsExport(), 'products.xlsx');
