@@ -5,6 +5,7 @@ use \App\Http\Controllers\ProductController;
 use \App\Http\Controllers\RandomGeneratorController;
 use App\Http\Controllers\EmailHistoryController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,3 +37,6 @@ Route::get('/email', function () {
 Route::post('/emailSend', [EmailHistoryController::class, 'emailSend'])->name('emailSend');
 Route::get('/register', [RegisterController::class, 'index'])->name('register.index');
 Route::post('/register/store', [RegisterController::class, 'store'])->name('register.store');
+Route::get('/auth/login', [LoginController::class, 'index'])->name('login.index');
+Route::post('/auth/login', [LoginController::class, 'login'])->name('login.login');
+Route::post('/auth/logout', [LoginController::class, 'logout'])->name('login.logout');

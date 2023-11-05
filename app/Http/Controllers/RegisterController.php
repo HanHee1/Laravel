@@ -25,6 +25,7 @@ class RegisterController extends Controller
     public function store(StoreRegisterRequest $request)
     {
         $validated = $request->validated();
+        $validated['password'] = Hash::make($validated['password']); // 로그인 시 인증 위해 암호화 처리
         $this->user->create($validated);
         return redirect()->route('products.index');
     }

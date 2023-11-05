@@ -7,16 +7,28 @@
         <a href="{{route('products.index')}}">Product List</a>
     </h2>
 
-    <a href="{{route("register.index")}}">
-        <button type="button" class="btn btn-dark prd-button">회원가입</button>
-    </a>
+    @guest()
+        <a href="{{route("register.index")}}">
+            <button type="button" class="btn btn-dark prd-button">회원가입</button>
+        </a>
+        <a href="{{route("login.index")}}">
+            <button type="button" class="btn btn-dark prd-button">로그인</button>
+        </a>
+    @endguest
 
-    <a href="{{route("products.create")}}">
-        <button type="button" class="btn btn-dark prd-button">게시글 작성</button>
-    </a>
+    @auth()
+        <p>아이디: {{auth()->user()->userid}}</p>
+        <form action="{{route('login.logout')}}" method="post" class="inline-block">
+            @csrf
+            <button class="btn btn-dark prd-button" type="submit">로그아웃</button>
+        </form>
+        <a href="{{route("products.create")}}">
+            <button type="button" class="btn btn-dark prd-button">게시글 작성</button>
+        </a>
         <a href="{{route("products.export")}}">
-        <button type="button" class="btn btn-dark prd-button">엑셀 다운로드</button>
-    </a>
+            <button type="button" class="btn btn-dark prd-button">엑셀 다운로드</button>
+        </a>
+    @endauth
 
     <form action="{{route('products.search')}}" method="post">
         @csrf

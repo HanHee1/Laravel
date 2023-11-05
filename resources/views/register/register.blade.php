@@ -1,4 +1,4 @@
-@extends('register.layout')
+@extends('layout')
 @section('title', '회원가입')
 
 @section('content')
