@@ -25,7 +25,7 @@ class StoreRegisterRequest extends FormRequest
             'userid' => 'required|min:6|max:12|unique:users|string',
             'password' => 'required|min:3|max:10|confirmed',
             'email' => 'required|email',
-            'tel' => 'required|min:11|max:11|integer'
+            'tel' => 'required|min:11|max:11|regex:/^([0-9\s\-\+\(\)]*)$/'
         ];
     }
 
@@ -42,7 +42,6 @@ class StoreRegisterRequest extends FormRequest
             'tel.required' => '전화번호를 입력해주세요',
             'tel.min' => '전화번호는 숫자만 11자 입력해주세요.',
             'tel.max' => '전화번호는 숫자만 11자 입력해주세요.',
-            'tel.integer' => '전화번호는 숫자만 11자 입력해주세요.',
         ];
     }
 }
