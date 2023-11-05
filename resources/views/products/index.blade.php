@@ -7,11 +7,15 @@
         <a href="{{route('products.index')}}">Product List</a>
     </h2>
 
+    <a href="{{route("register.index")}}">
+        <button type="button" class="btn btn-dark prd-button">회원가입</button>
+    </a>
+
     <a href="{{route("products.create")}}">
-        <button type="button" class="btn btn-dark prd-button">Create</button>
+        <button type="button" class="btn btn-dark prd-button">게시글 작성</button>
     </a>
         <a href="{{route("products.export")}}">
-        <button type="button" class="btn btn-dark prd-button">Excel</button>
+        <button type="button" class="btn btn-dark prd-button">엑셀 다운로드</button>
     </a>
 
     <form action="{{route('products.search')}}" method="post">

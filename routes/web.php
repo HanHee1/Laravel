@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\ProductController;
 use \App\Http\Controllers\RandomGeneratorController;
 use App\Http\Controllers\EmailHistoryController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,3 +34,5 @@ Route::get('/email', function () {
     return view('emailForm');
 })->name('emailForm');
 Route::post('/emailSend', [EmailHistoryController::class, 'emailSend'])->name('emailSend');
+Route::get('/register', [RegisterController::class, 'index'])->name('register.index');
+Route::post('/register/store', [RegisterController::class, 'store'])->name('register.store');
