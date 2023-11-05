@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NaverInfoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+Route::prefix('/naver/')->group(function () {
+    Route::post('report', [NaverInfoController::class, 'create'])->name('info.create');
+    Route::get('send', [NaverInfoController::class, 'send'])->name('info.send');
+});
+Route::fallback(function () {
+    return "유효한 값이 아닙니다.";
 });
