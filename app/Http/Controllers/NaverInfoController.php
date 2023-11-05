@@ -9,7 +9,7 @@ class NaverInfoController extends Controller
     public function send(Request $request)
     {
         $encText = urlencode("챗GPT"); // 검색어
-        $url = "https://openapi.naver.com/v1/search/blog.json?query=".$encText; // json 결과
+        $url = "https://openapi.naver.com/v1/search/news.json?query=".$encText; // json 결과
         $is_post = false;
 
         $ch = curl_init();
